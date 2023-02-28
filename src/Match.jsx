@@ -11,11 +11,11 @@ export function Match() {
 
     useEffect(() => {
         function getDate() {
-            const date = new Date()
+                const date = new Date()
 
                 const first = date.toISOString().split('T')[0]
 
-                const hour = '00'
+                const hour = date.getHours()
 
                 const sec = date.getSeconds()
 
