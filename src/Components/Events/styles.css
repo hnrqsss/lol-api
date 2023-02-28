@@ -27,6 +27,10 @@
     align-items: center;
 }
 
+.events-list .event-item .event-body .team-container {
+    display: flex;
+}
+
 .events-list .event-item .event-body .team-place {
     display: flex;
     flex-direction: column;
