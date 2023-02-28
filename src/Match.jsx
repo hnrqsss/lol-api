@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Team } from "./Team"
 import { API_KEY, BASE_URL_FEED } from "./utils/Constants"
@@ -7,53 +7,60 @@ import { API_KEY, BASE_URL_FEED } from "./utils/Constants"
 export function Match() {
     const [teamOne, setTeamOne] = useState([])
     const [teamTwo, setTeamTwo] = useState([])
+
     const {id} = useParams()
 
     useEffect(() => {
+
         function getDate() {
-                const date = new Date()
 
-                const first = date.toISOString().split('T')[0]
+            const dt = new Date()
+            const date = dt.toISOString()
 
-                const hour = date.getHours()
+            const dateSplit = date.split(':')
 
-                const sec = date.getSeconds()
+            const first = dateSplit[0]
+
+            const min = parseInt(dateSplit[1])
+
+            const sec = parseInt(dateSplit[2])
+
+            // const calcSec = sec - 45 < 0 ? 60 - sec : sec
+            
+            const calcSec = (parseInt(sec.toString()[0]) * 10)  > 60 ? 60 : (parseInt(sec.toString()[0]) * 10)
 
 
-                const firstSecond = sec - 45 < 0 ? 60 - sec : sec
 
-                const min = date.getMinutes()
+            const calcMin = min - 1 < 0 ? 0 : min - 1
 
-                const countMin = min - 1 < 0 ? 0 : min - 1
+            const minute = calcMin.toString().length < 2 ? `0${calcMin}` : calcMin
 
-                const firstMin = sec - 45 < 0 ?  countMin : min
+            const seconds = calcSec.toString().length < 2 ? `0${calcSec}` : calcSec
 
-                const minut = firstMin.toString().length < 2 ? `0${firstMin}` : firstMin
-                
-                const second = parseInt(firstSecond.toString()[0]) * 10
+            const finalDate = `${first}:${minute}:${seconds}.000z`
 
-                const finalDate = `${first}T${hour}:${minut}:${second}.000z`
-
-                return finalDate
-        }
+            return finalDate
+    }
 
         async function fetchData() {
+            const firstId = id.slice(0, id.length - 2) 
+            const lastId = parseInt(id.slice(id.length - 2, id.length)) + 1
+            const finalId = firstId + lastId;
+
             setInterval(async () => {
                 
 
-                const { data } = await axios.get(`${BASE_URL_FEED}/livestats/v1/details/${parseInt(id) + 1}?hl=pt-BR&startingTime=${getDate()}`, {
+                const { data } = await axios.get(`${BASE_URL_FEED}/livestats/v1/details/${finalId}?hl=pt-BR&startingTime=${getDate()}`, {
                     headers: {
                         'x-api-key': API_KEY
                     }
                 })
 
                 if (data.frames) {
-                    setTeamOne(data.frames[data.frames.length - 1].participants.slice(0,5))
-                    setTeamTwo(data.frames[data.frames.length - 1].participants.slice(5,10))
+                    setTeamOne(data.frames[0].participants.slice(0,5))
+                    setTeamTwo(data.frames[0].participants.slice(5,10))
                 }
             }, 1000)
-            
-            
         }
 
         fetchData()
@@ -63,10 +70,10 @@ export function Match() {
     return(
         <>
             <h1>Time 1</h1>
-            <Team participants={teamOne} />
+            <Team participants={teamOne} color='blue' />
 
-            <h2>Time 2</h2>
-            <Team participants={teamTwo} />
+            <h1>Time 2</h1>
+            <Team participants={teamTwo} color='red'/>
         
         </>
     )
