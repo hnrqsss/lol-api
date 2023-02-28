@@ -12,10 +12,13 @@ function App() {
 
   useEffect(() => {
     async function getTournaments() {
-      const {inProgress, unStart} = await eventsApi.getSchedules()
-
-      setInProgress(inProgress)
-      setUnstart(unStart)
+      setInterval(async () => {
+        const {inProgress, unStart} = await eventsApi.getSchedules()
+  
+        setInProgress(inProgress)
+        setUnstart(unStart)
+        
+      }, 5000);
     }
 
     getTournaments()
