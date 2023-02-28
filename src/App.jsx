@@ -1,10 +1,7 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import './App.css'
 import { Events } from './Components/Events'
 import { eventsApi } from './services/eventsApi'
-import { API_KEY, BASE_URL_LOL_ESPORTS } from './utils/Constants'
 
 function App() {
   const [inProgress, setInProgress] = useState([])
