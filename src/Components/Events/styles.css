@@ -1,0 +1,44 @@
+.events-list {
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.events-list .event-item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, .1);
+    margin: 1rem 0;
+}
+
+.events-list .event-item .event-header {
+    display: flex;
+    flex-direction: column;
+    background-color: #333;
+    padding: .5rem .5rem;
+}
+
+.events-list .event-item .event-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: .5rem 0;
+    align-items: center;
+}
+
+.events-list .event-item .event-body .team-container {
+    display: flex;
+}
+
+.events-list .event-item .event-body .team-place {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1rem;
+}
+
+.events-list .event-item .event-body img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
