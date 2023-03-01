@@ -8,17 +8,16 @@ function App() {
   const [unStart, setUnstart] = useState([])
 
   useEffect(() => {
-    async function getTournaments() {
-      setInterval(async () => {
+    const calls = setInterval(async () => {
         const {inProgress, unStart} = await eventsApi.getSchedules()
   
         setInProgress(inProgress)
         setUnstart(unStart)
         
-      }, 5000);
-    }
+    }, 5000);
 
-    getTournaments()
+    return () => clearInterval(calls)
+
   },[])
 
   return (

@@ -28,46 +28,67 @@ const createDate = () => {
 };
 
 async function getWindowData({ id = "", date = "" }) {
-  const { data } = await api.get(
-    `livestats/v1/window/${id}?startingTime=${date}`
-  );
+  try {
+    const { data } = await api.get(
+      `livestats/v1/window/${id}?startingTime=${date}`
+    );
 
-  return {
-    gameMetadata: data?.gameMetadata || {},
-    framesMetaData: data?.frames[data?.frames?.length - 1] || {},
-  };
+    if (data?.frames) {
+      return {
+        gameMetadata: data?.gameMetadata || {},
+        framesMetaData: data?.frames[data?.frames?.length - 1] || {},
+      };
+    }
+  } catch (err) {
+    throw err;
+  }
 }
 
 async function getDetailData({ id = "", date = "" }) {
-  const { data } = await api.get(
-    `livestats/v1/details/${id}?startingTime=${date}`
-  );
+  try {
+    const { data } = await api.get(
+      `livestats/v1/details/${id}?startingTime=${date}`
+    );
 
-  return {
-    frames: data?.frames[data?.frames?.length - 1] || {},
-  };
+    return {
+      frames: data?.frames[data?.frames?.length - 1] || {},
+    };
+  } catch (err) {
+    throw err;
+  }
 }
 
 export const eventsApi = {
   getMatchData: async ({ id = "" }) => {
-    const date = createDate();
-    const firstId = id.slice(0, id.length - 2);
+    try {
+      const date = createDate();
+      const firstId = id.slice(0, id.length - 2);
 
-    const idDigits = parseInt(id.slice(id.length - 2, id.length)) + 1;
+      const idDigits = parseInt(id.slice(id.length - 2, id.length)) + 1;
 
-    const lastId = idDigits.toString().length < 2 ? `0${idDigits}` : idDigits;
-    const finalId = firstId + lastId;
+      const lastId = idDigits.toString().length < 2 ? `0${idDigits}` : idDigits;
+      const finalId = firstId + lastId;
 
-    const { gameMetadata, framesMetaData } = await getWindowData({
-      id: finalId,
-      date,
-    });
-    const { frames } = await getDetailData({ id: finalId, date });
+      const { frames } = await getDetailData({ id: finalId, date });
 
-    return {
-      gameMetadata,
-      framesMetaData,
-      frames,
-    };
+      const { gameMetadata, framesMetaData } = await getWindowData({
+        id: finalId,
+        date,
+      });
+
+      return {
+        gameMetadata,
+        framesMetaData,
+        frames,
+      };
+    } catch (err) {
+      console.log(err);
+
+      return {
+        gameMetadata: {},
+        framesMetaData: [],
+        frames: {},
+      };
+    }
   },
 };

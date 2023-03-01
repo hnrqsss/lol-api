@@ -7,7 +7,7 @@ export function Events({ events = []}) {
   
     return (
         <ul className='events-list'>
-        {events?.map((event, index) => (
+        {events?.map((event) => (
           <li key={event?.match?.id} className='event-item'>
               <Link to={event?.state === 'inProgress' ? `/partida/${event?.match?.id}` : ''}>
                 <div className='event-header'>
@@ -16,7 +16,7 @@ export function Events({ events = []}) {
                 </div>
                 <div className='event-body'>
                   {event?.match?.teams?.map((team, i) => (
-                    <div className='team-container' key={i}>
+                    <div className='team-container' key={team.code}>
                       <div className='team-place'>
                         <img src={team?.image?.replace('http://', 'https://')} />
                         <span>{team?.code}</span>

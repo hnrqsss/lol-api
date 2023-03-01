@@ -17,7 +17,7 @@ export function Match() {
 
     useEffect(() => {
         
-        setInterval(async () => {
+        const calls = setInterval(async () => {
             const { gameMetadata, frames, framesMetaData } = await eventsApi.getMatchData({id})
     
             setBlueMetadata(gameMetadata?.blueTeamMetadata)
@@ -29,6 +29,9 @@ export function Match() {
                 setTeamTwo(frames?.participants?.slice(5,10))
             }
         }, 1000)
+
+
+        return () => clearInterval(calls)
     
     }, [])
 
