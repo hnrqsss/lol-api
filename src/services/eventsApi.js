@@ -15,7 +15,7 @@ export const eventsApi = {
     const events = data?.data?.schedule?.events;
 
     const inProgress =
-      events.filter((item) => item.state === "inProgress") || [];
+      events.filter((item) => item.state === "inProgress" && item.match) || [];
     const unStart = events.filter((item) => item.state === "unstarted") || [];
 
     return {
