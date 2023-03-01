@@ -36,14 +36,14 @@ export function Match() {
         <>  
             <Team 
                 participants={teamOne}
-                color='blue'
+                side='blue'
                 teamMetadata={blueMetaData}
                 framesTeam={framesMetaData?.blueTeam}
             />
             
             <Team 
                 participants={teamTwo}
-                color='red'
+                side='red'
                 teamMetadata={redMetaData}
                 framesTeam={framesMetaData?.redTeam}    
             />

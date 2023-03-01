@@ -1,0 +1,23 @@
+.team-header {
+    background-color: #333;
+}
+
+.team-match-details-container .team-match-details-list {
+    list-style: none;
+    display: flex;
+    margin: 0 5px;
+    justify-content: space-around;
+    padding: 0;
+}
+
+.team-match-details-container .team-match-details-list li {
+    margin: 5px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-match-details-container .team-match-details-list li div {
+    display: flex;
+    flex-direction: column;
+}

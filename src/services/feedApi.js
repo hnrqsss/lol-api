@@ -34,7 +34,7 @@ async function getWindowData({ id = "", date = "" }) {
 
   return {
     gameMetadata: data?.gameMetadata || {},
-    framesMetaData: data?.frames[data?.frames.length - 1] || {},
+    framesMetaData: data?.frames[data?.frames?.length - 1] || {},
   };
 }
 
@@ -52,7 +52,10 @@ export const eventsApi = {
   getMatchData: async ({ id = "" }) => {
     const date = createDate();
     const firstId = id.slice(0, id.length - 2);
-    const lastId = parseInt(id.slice(id.length - 2, id.length)) + 1;
+
+    const idDigits = parseInt(id.slice(id.length - 2, id.length)) + 1;
+
+    const lastId = idDigits.toString().length < 2 ? `0${idDigits}` : idDigits;
     const finalId = firstId + lastId;
 
     const { gameMetadata, framesMetaData } = await getWindowData({
