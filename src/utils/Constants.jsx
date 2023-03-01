@@ -16,9 +16,15 @@ const POSITIONS = {
     10: 'SUP',
 }
 
+const SIDE_COLORS = {
+    'red': '#E83F5B',
+    'blue': '#2AA9E0'
+}
+
 export {
     API_KEY,
     BASE_URL_FEED,
     BASE_URL_LOL_ESPORTS,
-    POSITIONS
+    POSITIONS,
+    SIDE_COLORS,
 }

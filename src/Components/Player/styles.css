@@ -1,0 +1,20 @@
+.list-player-item {
+    display: flex;
+    background-color: #333;
+    margin: .5rem 0;
+    justify-content: space-between;
+    padding: 0 .5rem;
+    align-items: center;
+}
+
+.list-player-item .list-player-item-info {
+    display: flex;
+    flex-direction: column;
+    background-color: #242424;
+    min-width: 33px;
+    height: 70%;
+    font-size: .8rem;
+    justify-content: center;
+    padding: .3rem;
+    
+}
