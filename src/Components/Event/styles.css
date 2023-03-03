@@ -1,0 +1,47 @@
+.events-list .event-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.events-list .event-card .event-card-header {
+    text-align: center;
+    text-transform: uppercase;
+    height: 20%;
+    background-color: var(--secondary-color);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.events-list .event-card .event-card-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 60%;
+    padding: .6rem 0;
+    font-size: .9rem;
+}
+
+.events-list .event-card .event-card-body .event-team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.events-list .event-card .event-card-body .event-team img {
+    width: 30px;
+    height: 30px;
+    background-color: var(--secondary-color);
+    object-fit: fill;
+}
+
+.events-list .event-card .event-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20%;
+    background-color: var(--secondary-color);
+}
